@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Login from "./Components/Auth/Login";
 import EmployeeDashboard from "./Components/Dashboard/EmployeeDashboard";
-import Header from "./Components/Dashboard/Others/Header";
 import AdminDashboard from "./Components/Dashboard/AdminDashboard";
-import { getLocalStorage, setLocalStorage } from "./assets/Utils/LocalStorage";
 import { AuthContext } from "./Context/AuthProvider";
 
 function App() {
