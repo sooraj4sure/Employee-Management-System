@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../../../Context/AuthProvider";
 
 const CreateTask = () => {
-  const [taskTitle, settaskTitle] = useState("");
-  const [taskDesc, settaskDesc] = useState("");
-  const [taskDate, settaskDate] = useState("");
+  const [userData, setuserData] = useContext(AuthContext);
+
+  const [title, settaskTitle] = useState("");
+  const [description, settaskDesc] = useState("");
+  const [date, settaskDate] = useState("");
   const [taskAssignTo, settaskAssignTo] = useState("");
   const [category, setcategory] = useState("");
 
-  const [task, settask] = useState({});
+  const [newTask, setnewTask] = useState({});
 
   // localStorage.clear()
 
@@ -15,11 +18,11 @@ const CreateTask = () => {
     // console.log(taskAssignTo, taskDate, taskDesc, taskTitle, category);
     event.preventDefault();
 
-    settask({
-      taskTitle,
-      taskDate,
+    setnewTask({
+      title,
+      date,
       taskAssignTo,
-      taskDesc,
+      description,
       category,
       active: false,
       newTask: true,
@@ -27,18 +30,19 @@ const CreateTask = () => {
       failed: false,
     });
 
-    let data = JSON.parse(localStorage.getItem("employee"))
- 
+    const data = userData;
+
     data.forEach((elem) => {
-      if(taskAssignTo==elem.firstName){
-        elem.tasks.push(task)
+      if (taskAssignTo == elem.firstName) {
+        elem.tasks.push(newTask);
+        elem.taskCount.newTask = elem.taskCount.newTask + 1;
         // elem.task.pop();
-        
       }
-      
-      
+      // localStorage.setItem("employee",JSON.stringify(data))
     });
-console.log(data);
+    setuserData(data);
+    console.log(data);
+    
 
     setcategory("");
     settaskAssignTo("");
@@ -60,7 +64,7 @@ console.log(data);
               onChange={(event) => {
                 settaskTitle(event.target.value);
               }}
-              value={taskTitle}
+              value={title}
               className="text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border-[1px] border-gray mb-4"
               type="text"
               placeholder="Make a UI Design."
@@ -73,7 +77,7 @@ console.log(data);
               onChange={(event) => {
                 settaskDate(event.target.value);
               }}
-              value={taskDate}
+              value={date}
               className="text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border-[1px] border-gray mb-4"
               type="date"
             />
@@ -109,7 +113,7 @@ console.log(data);
             onChange={(event) => {
               settaskDesc(event.target.value);
             }}
-            value={taskDesc}
+            value={description}
             className="w-full h-44 text-sm py-2 px-4 rounded outline-none bg-transparent border-[1px] border-gray-400"
             name=""
             id=""
