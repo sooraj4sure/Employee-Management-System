@@ -28,8 +28,9 @@ function Login({handleLogin}) {
 
   return (
   <div className='flex items-center justify-center h-screen w-screen'>
-       <h2>Credentials -> admin@me.com Password(123), employee2@example.com Password(123)</h2>
+      
     <div className='border-2 border-emerald-600 p-24 rounded-xl'>
+         <h2>Credentials -> admin@me.com Password(123), employee2@example.com Password(123)</h2>
         <form onSubmit={submitHandler}  className='flex flex-col items-center justify-center'>
             <input onChange={emailHandler }  value={Email} required className='border-2 border-emerald-600 rounded-full px-4 py-3 text-xl text-white outline-none bg-transparent'  type="email" placeholder='Enter Your Email' />
             <input onChange={passwordHandler} value={Password} required className='border-2 border-emerald-600 rounded-full px-4 py-3 text-xl text-white outline-none bg-transparent mt-3' type="password" placeholder='Enter Password' />
